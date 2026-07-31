@@ -1,0 +1,165 @@
+/* ============================================================
+   Water-Display — global stylesheet
+   Tech-dashboard aesthetic: deep navy, neon cyan, glass panels.
+   All colors flow from brand theme CSS vars (see useTheme.ts).
+   ============================================================ */
+
+:root {
+  --wd-primary: #00d4ff;
+  --wd-primary-deep: #0066ff;
+  --wd-accent: #ffb100;
+  --wd-bg: #061528;
+  --wd-panel: #0b2247;
+  --wd-text: #e6f2ff;
+  --wd-text-dim: #7fa8d0;
+  --wd-danger: #ff4d4f;
+  --wd-warning: #faad14;
+  --wd-success: #52c41a;
+  --wd-gradient: linear-gradient(135deg, #0066ff, #00d4ff);
+
+  --wd-radius: 6px;
+  --wd-radius-lg: 12px;
+  --wd-gap: 16px;
+  --wd-topbar-h: 64px;
+  --wd-nav-w: 240px;
+
+  --wd-font: 'HarmonyOS Sans', 'Source Han Sans CN', 'PingFang SC', 'Microsoft YaHei',
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --wd-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--wd-font);
+  color: var(--wd-text);
+  background: var(--wd-bg);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+#app {
+  height: 100%;
+}
+
+a {
+  color: var(--wd-primary);
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---- Reusable utility classes ---- */
+
+.wd-panel {
+  background: linear-gradient(160deg, rgba(11, 34, 71, 0.9), rgba(6, 21, 40, 0.85));
+  border: 1px solid rgba(0, 212, 255, 0.18);
+  border-radius: var(--wd-radius-lg);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+.wd-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(0, 212, 255, 0.06), transparent 60%);
+  pointer-events: none;
+}
+
+.wd-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--wd-text);
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.12);
+}
+.wd-panel-title::before {
+  content: '';
+  width: 3px;
+  height: 14px;
+  background: var(--wd-gradient);
+  border-radius: 2px;
+}
+
+.wd-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  color: var(--wd-primary);
+}
+.wd-chip--accent {
+  background: rgba(255, 177, 0, 0.1);
+  border-color: rgba(255, 177, 0, 0.3);
+  color: var(--wd-accent);
+}
+
+.wd-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 4px;
+  background: rgba(127, 168, 208, 0.12);
+  color: var(--wd-text-dim);
+}
+
+.wd-ref {
+  font-family: var(--wd-font-mono);
+  font-size: 11px;
+  color: var(--wd-text-dim);
+  opacity: 0.7;
+}
+
+/* Animations */
+@keyframes wd-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.wd-fade-in {
+  animation: wd-fade-in 0.4s ease both;
+}
+
+@keyframes wd-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.wd-pulse {
+  animation: wd-pulse 1.5s ease-in-out infinite;
+}
+
+/* Page scroll container */
+.wd-scroll {
+  overflow-y: auto;
+  height: 100%;
+}

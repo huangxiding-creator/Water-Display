@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+.vite/
+.turbo/
+*.tsbuildinfo
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test / coverage
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# OS / misc
+.cache/
+.temp/
+tmp/
+*.tgz
+
+# Project source artifacts (large / private inputs — NOT for the open-source repo)
+初步设计报告/
+开发初步想法/
+.research/pdf_images/
+.research/test_frb.json
+.research/report_tables.json
+*.output
+
+# Tauri (future)
+src-tauri/target/

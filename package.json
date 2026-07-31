@@ -1,0 +1,44 @@
+{
+  "name": "water-display",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Open-source generator that turns a water conservancy informatization / digital-twin design-report chapter into an interactive, navigable showcase website for owner requirement alignment.",
+  "license": "MIT",
+  "author": "huangxiding-creator",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "pnpm --filter @wd/web dev",
+    "build": "pnpm -r --filter=./packages/* build && pnpm --filter @wd/web build",
+    "build:web": "pnpm --filter @wd/web build",
+    "preview": "pnpm --filter @wd/web preview",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,vue,js,json,md,css,scss}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,vue,js,json,md,css,scss}\"",
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm --filter @wd/web test:e2e",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^9.16.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.4.0",
+    "typescript": "^5.7.0",
+    "vue-eslint-parser": "^9.4.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,vue}": ["eslint --fix", "prettier --write"],
+    "*.{json,md,css,scss}": ["prettier --write"]
+  }
+}
