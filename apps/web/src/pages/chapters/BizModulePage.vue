@@ -4,6 +4,7 @@ import { project } from '@/data/project'
 import PageHeader from '@/components/PageHeader.vue'
 import Panel from '@/components/Panel.vue'
 import FeatureRow from '@/components/FeatureRow.vue'
+import BizVisual from '@/components/BizVisual.vue'
 import DispatchSimulator from '@/components/simulators/DispatchSimulator.vue'
 import FloodSimulator from '@/components/simulators/FloodSimulator.vue'
 import CockpitSimulator from '@/components/simulators/CockpitSimulator.vue'
@@ -35,6 +36,9 @@ const simLabel = computed(() => {
       <FloodSimulator v-else-if="module.simulator === 'flood'" :chapter-id="chapterId" :chapter-title="module.title" />
       <CockpitSimulator v-else-if="module.simulator === 'cockpit'" :chapter-id="chapterId" :chapter-title="module.title" />
     </Panel>
+
+    <!-- Module-specific mock dashboards (makes every module intuitive, not just text) -->
+    <BizVisual :module-id="chapterId" />
 
     <!-- Sub-modules from config -->
     <Panel v-for="(sub, i) in module.subModules" :key="i" :title="sub.name" class="cp__block">

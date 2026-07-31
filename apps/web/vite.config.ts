@@ -16,6 +16,8 @@ export default defineConfig(({ mode }) => {
   const isStatic = mode === 'static'
   return {
     base: './',
+    // Read .env files from the monorepo root so a single root .env.local works.
+    envDir: fileURLToPath(new URL('../../', import.meta.url)),
     plugins: [vue(), ...(isStatic ? [viteSingleFile({ removeViteModuleLoader: true })] : [])],
     resolve: {
       alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
