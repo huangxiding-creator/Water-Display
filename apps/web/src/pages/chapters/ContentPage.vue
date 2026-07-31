@@ -12,6 +12,10 @@ import Panel from '@/components/Panel.vue'
 import FeatureRow from '@/components/FeatureRow.vue'
 import FigureImage from '@/components/FigureImage.vue'
 import KnowledgeBrowser from '@/components/KnowledgeBrowser.vue'
+import FrameworkExplorer from '@/components/FrameworkExplorer.vue'
+import DataFlowDiagram from '@/components/DataFlowDiagram.vue'
+import TopologyExplorer from '@/components/TopologyExplorer.vue'
+import PerformanceDashboard from '@/components/PerformanceDashboard.vue'
 import EChart from '@/components/EChart.vue'
 import { CHART_PALETTE, AXIS_STYLE, TOOLTIP_STYLE } from '@/composables/echarts'
 
@@ -63,14 +67,6 @@ const userTiers = [
   { tier: '五级', org: '用水者协会', count: 0, duty: '组织村民管好斗、农、毛渠输配水' },
 ]
 
-const perfRows = [
-  { k: '并发用户', v: `${project.performance.concurrentUsers} 人同时在线` },
-  { k: '响应时间', v: `≤ ${project.performance.responseTimeSec}s（一般查询）` },
-  { k: '复杂查询', v: '< 8s；复杂汇总 ≤ 10min' },
-  { k: '网络', v: '骨干万兆(10G)，接入千兆到桌面' },
-  { k: '视频', v: `${project.performance.videoResolution}，存储 ${project.performance.videoRetentionDays} 天` },
-  { k: '可用性', v: project.performance.availability ?? '—' },
-]
 </script>
 
 <template>
@@ -199,24 +195,18 @@ const perfRows = [
         <FeatureRow name="工程运行管理业务" desc="工程结构安全状态与设施设备运行状态监视评估" :chapter-id="chapterId" :chapter-title="title" />
       </Panel>
 
-      <div class="cp__two">
-        <Panel title="性能需求" ref-tag="15.3.4">
-          <table class="tbl tbl--compact">
-            <tbody>
-              <tr v-for="(r, i) in perfRows" :key="i"><td class="muted">{{ r.k }}</td><td>{{ r.v }}</td></tr>
-            </tbody>
-          </table>
-        </Panel>
-        <Panel title="安全需求" ref-tag="15.3.5">
-          <div class="cp__sec">
-            <span class="wd-chip">控制专网 {{ project.security.controlLevel }}</span>
-            <span class="wd-chip wd-chip--accent">业务网 {{ project.security.businessLevel }}</span>
-          </div>
-          <div class="cp__sec-tags">
-            <span v-for="m in project.security.measures" :key="m" class="wd-tag">{{ m }}</span>
-          </div>
-        </Panel>
-      </div>
+      <Panel title="性能需求 · 可视化（并发/响应/带宽仪表）" ref-tag="15.3.4" class="cp__block">
+        <PerformanceDashboard />
+      </Panel>
+      <Panel title="安全需求" ref-tag="15.3.5" class="cp__block">
+        <div class="cp__sec">
+          <span class="wd-chip">控制专网 {{ project.security.controlLevel }}</span>
+          <span class="wd-chip wd-chip--accent">业务网 {{ project.security.businessLevel }}</span>
+        </div>
+        <div class="cp__sec-tags">
+          <span v-for="m in project.security.measures" :key="m" class="wd-tag">{{ m }}</span>
+        </div>
+      </Panel>
     </template>
 
     <!-- ============ FRAMEWORK ============ -->
@@ -232,6 +222,9 @@ const perfRows = [
             :type="f.type"
           />
         </div>
+      </Panel>
+      <Panel title="总体框架 · 可交互探索" ref-tag="15.4.3" class="cp__block">
+        <FrameworkExplorer />
       </Panel>
       <Panel title="建设原则" ref-tag="15.4.2" class="cp__block">
         <div class="cp__principles">
@@ -279,16 +272,8 @@ const perfRows = [
 
     <!-- ============ DATA FOUNDATION ============ -->
     <template v-else-if="chapterId === 'data-foundation'">
-      <Panel title="三级数据底板" ref-tag="15.5.1.1" class="cp__block">
-        <div class="cp__levels">
-          <div v-for="lv in project.twinPlatform.dataLevels" :key="lv.level" class="cp__level">
-            <span class="cp__level-tag">{{ lv.level }}</span>
-            <div>
-              <div class="cp__level-prec">{{ lv.precision }}</div>
-              <div class="cp__level-scope">{{ lv.scope }}</div>
-            </div>
-          </div>
-        </div>
+      <Panel title="数据底板 · 可交互（流向动画 + L1/L2/L3 精度探索）" ref-tag="15.5.1.1" class="cp__block">
+        <DataFlowDiagram />
       </Panel>
       <Panel title="数据资源类别" ref-tag="15.5.1.1" class="cp__block">
         <table class="tbl">
@@ -340,15 +325,8 @@ const perfRows = [
 
     <!-- ============ INFRASTRUCTURE ============ -->
     <template v-else-if="chapterId === 'infrastructure'">
-      <Panel title="遥测网络拓扑" ref-tag="15.5.2" class="cp__block">
-        <div class="cp__topo">
-          <span class="cp__topo-node cp__topo-node--center">1 总调度中心</span>
-          <span class="cp__topo-arrow">↕</span>
-          <span class="cp__topo-node">7 分调度中心</span>
-          <span class="cp__topo-arrow">↕</span>
-          <span class="cp__topo-node cp__topo-node--accent">624 遥测站</span>
-          <span class="cp__topo-note">{{ project.infrastructure.networkTopology }}</span>
-        </div>
+      <Panel title="遥测网络拓扑 · 可交互（1:7:624，点击分中心）" ref-tag="15.5.2" class="cp__block">
+        <TopologyExplorer />
       </Panel>
       <div class="cp__two">
         <Panel title="感知网构成" ref-tag="15.5.2.1">

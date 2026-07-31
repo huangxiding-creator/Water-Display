@@ -1,36 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { project } from '@/data/project'
 import KpiCard from '@/components/KpiCard.vue'
 import Panel from '@/components/Panel.vue'
 import EChart from '@/components/EChart.vue'
 import LogoMark from '@/components/LogoMark.vue'
+import FrameworkExplorer from '@/components/FrameworkExplorer.vue'
 import { CHART_PALETTE, TOOLTIP_STYLE } from '@/composables/echarts'
-import type { ChapterId } from '@wd/config'
-
-const router = useRouter()
-
-const frameworkLayers = [
-  {
-    id: 'app' as ChapterId,
-    name: '业务应用层',
-    desc: '供需水预报 · 水资源配置调度 · 水旱灾害防御 · 工程管理 · 灌区一张图 · 远程监控 · 公共服务 · 综合门户',
-    items: ['供需水预报', '水资源配置与调度', '水旱灾害防御', '供用水管理', '工程管理', '灌区一张图', '远程集中监控', '水公共服务', '综合门户'],
-  },
-  {
-    id: 'twin-platform' as ChapterId,
-    name: '数字孪生平台（核心）',
-    desc: '数据底板 · 模型库 · 知识库 · 孪生引擎',
-    items: ['数据底板', '水利专业模型', '智能识别模型', '仿真引擎', '知识库', '地面标定'],
-  },
-  {
-    id: 'infrastructure' as ChapterId,
-    name: '信息化基础设施',
-    desc: '感知网 · 自动控制 · 通讯网络 · 运行环境 · 应用支撑',
-    items: ['感知网 624', '自动控制 31站', '通讯网络', '运行环境', '应用支撑平台'],
-  },
-]
 
 // ---- mock charts driven by config ----
 const sensorOption = computed(() => ({
@@ -122,10 +98,6 @@ const dispatchSankeyOption = {
     },
   ],
 }
-
-function go(id: string) {
-  router.push({ name: id })
-}
 </script>
 
 <template>
@@ -160,31 +132,9 @@ function go(id: string) {
       />
     </div>
 
-    <!-- Framework diagram (interactive) -->
-    <Panel title="总体框架（点击层级进入详情）" ref-tag="15.4.3" fill class="ov__framework">
-      <div class="framework">
-        <div
-          v-for="(layer, idx) in frameworkLayers"
-          :key="layer.id"
-          class="framework__layer"
-          :style="{ animationDelay: `${idx * 0.1}s` }"
-          @click="go(layer.id)"
-        >
-          <div class="framework__layer-head">
-            <span class="framework__idx">0{{ frameworkLayers.length - idx }}</span>
-            <span class="framework__layer-name">{{ layer.name }}</span>
-          </div>
-          <div class="framework__layer-desc">{{ layer.desc }}</div>
-          <div class="framework__items">
-            <span v-for="it in layer.items" :key="it" class="framework__item">{{ it }}</span>
-          </div>
-        </div>
-      </div>
-      <!-- Safeguard bands -->
-      <div class="framework__bands">
-        <div class="framework__band" @click="go('security')">网络安全保障体系 · {{ project.security.controlLevel }}</div>
-        <div class="framework__band framework__band--accent">共建共享 · 运维保障 · 系统集成</div>
-      </div>
+    <!-- Framework diagram (interactive explorer) -->
+    <Panel title="总体框架 · 可交互探索（点击层级查看组件，点击组件跳转）" ref-tag="15.4.3" class="ov__framework">
+      <FrameworkExplorer />
     </Panel>
 
     <!-- Charts row -->
