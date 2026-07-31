@@ -92,6 +92,15 @@ pnpm --filter @wd/web build:static
 pnpm --filter @wd/web tauri build      # 产出 .exe / .msi
 ```
 
+> **Tauri 构建前置要求（仅桌面 App 需要，Web 版不需要）**
+> Windows 上链接 Rust 二进制需要 **MSVC C++ Build Tools**：
+> 1. 安装 [Visual Studio Build Tools 2022](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022)
+> 2. 勾选工作负载 **"使用 C++ 的桌面开发"**（Desktop development with C++）
+> 3. 在 **"Developer PowerShell for VS"** 或加载了 vcvars 的终端里运行 `pnpm tauri build`
+>
+> ⚠️ 不要在 Git Bash 里直接构建——Git Bash 的 `/usr/bin/link`（GNU coreutils）会
+> 屏蔽 MSVC 的 `link.exe`，导致链接失败（报错 `link: extra operand`）。
+
 > 演示账号：任意账号密码即可进入（这是展示平台，非真实系统）。
 
 ### AI 报告问答助手
