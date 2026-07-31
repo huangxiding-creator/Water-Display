@@ -10,6 +10,8 @@ import { project, navIndex } from '@/data/project'
 import PageHeader from '@/components/PageHeader.vue'
 import Panel from '@/components/Panel.vue'
 import FeatureRow from '@/components/FeatureRow.vue'
+import FigureImage from '@/components/FigureImage.vue'
+import KnowledgeBrowser from '@/components/KnowledgeBrowser.vue'
 import EChart from '@/components/EChart.vue'
 import { CHART_PALETTE, AXIS_STYLE, TOOLTIP_STYLE } from '@/composables/echarts'
 
@@ -18,6 +20,9 @@ const props = defineProps<{ chapterId: string }>()
 const navItem = computed(() => navIndex.get(props.chapterId))
 const title = computed(() => navItem.value?.title ?? '')
 const refTag = computed(() => navItem.value?.ref)
+
+/** Real report figures reused on this chapter (per project config). */
+const chapterFigures = computed(() => project.figures.filter((f) => f.chapterId === props.chapterId))
 
 /* ---- per-chapter derived data ---- */
 
@@ -74,6 +79,18 @@ const perfRows = [
 
     <!-- ============ PROFILE ============ -->
     <template v-if="chapterId === 'profile'">
+      <Panel v-if="chapterFigures.length" title="工程图示（复用初设报告原图）" ref-tag="15.1" class="cp__block">
+        <div class="cp__figures">
+          <FigureImage
+            v-for="(f, i) in chapterFigures"
+            :key="i"
+            :src="f.src"
+            :caption="f.caption"
+            :ref-tag="f.ref"
+            :type="f.type"
+          />
+        </div>
+      </Panel>
       <Panel title="工程概况" ref-tag="15.1.1" class="cp__block">
         <p class="cp__lead">
           江巷灌区位于安徽省滁州市、合肥市境内，池河、滁河上游，总面积
@@ -204,6 +221,18 @@ const perfRows = [
 
     <!-- ============ FRAMEWORK ============ -->
     <template v-else-if="chapterId === 'framework'">
+      <Panel v-if="chapterFigures.length" title="总体框架图（复用初设报告原图）" ref-tag="15.4.3" class="cp__block">
+        <div class="cp__figures">
+          <FigureImage
+            v-for="(f, i) in chapterFigures"
+            :key="i"
+            :src="f.src"
+            :caption="f.caption"
+            :ref-tag="f.ref"
+            :type="f.type"
+          />
+        </div>
+      </Panel>
       <Panel title="建设原则" ref-tag="15.4.2" class="cp__block">
         <div class="cp__principles">
           <div v-for="(p, i) in principleItems" :key="i" class="cp__principle">
@@ -290,7 +319,13 @@ const perfRows = [
 
     <!-- ============ KNOWLEDGE BASE ============ -->
     <template v-else-if="chapterId === 'knowledge-base'">
-      <Panel title="八大知识库 — 数字孪生智能内核" ref-tag="15.5.1.3" class="cp__block">
+      <Panel title="知识库浏览 · 测试数据演示" ref-tag="15.5.1.3" class="cp__block">
+        <p class="cp__lead" style="margin-bottom: 14px">
+          点击任一知识库查看其中的 <strong>测试数据条目</strong>（模拟）。真实平台对接知识引擎 + 向量库；此处展示每个库"装什么、怎么用"。
+        </p>
+        <KnowledgeBrowser />
+      </Panel>
+      <Panel title="八大知识库概览" ref-tag="15.5.1.3" class="cp__block">
         <div class="cp__kb-grid">
           <div v-for="kb in project.twinPlatform.knowledgeBases" :key="kb.id" class="cp__kb-card wd-panel">
             <h4 class="cp__kb-name">{{ kb.name }}</h4>

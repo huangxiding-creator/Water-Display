@@ -229,6 +229,20 @@ export const BizFeatureSchema = z.object({
 })
 export type BizFeature = z.infer<typeof BizFeatureSchema>
 
+export const FigureSchema = z.object({
+  /** Chapter id this figure belongs to (matches NavItem.id). */
+  chapterId: z.string(),
+  /** Runtime-relative URL, e.g. 'figures/fig-location.png'. */
+  src: z.string(),
+  caption: z.string(),
+  ref: z.string().optional(),
+  /** Controls the stylised fallback shown when the image file is absent. */
+  type: z
+    .enum(['map', 'layout', 'org', 'framework', 'generic'])
+    .default('generic'),
+})
+export type Figure = z.infer<typeof FigureSchema>
+
 export const BizModuleSchema = z.object({
   id: ChapterIdSchema,
   title: z.string(),
@@ -276,6 +290,8 @@ export const ProjectConfigSchema = z.object({
     .default([]),
   /** Problem statements from the report's current-state analysis. */
   problems: z.array(z.string()).default([]),
+  /** Real figures/images reused from the source report (mapped to chapters). */
+  figures: z.array(FigureSchema).default([]),
   /** Free-form report metadata. */
   report: z
     .object({

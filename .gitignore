@@ -60,3 +60,7 @@ tmp/
 **/src-tauri/target/
 **/src-tauri/gen/schemas/
 apps/web/src-tauri/icon-source.png
+screenshot-*
+
+# Real report figures (IP — derived from 初步设计报告, not committed)
+apps/web/public/figures/*.png

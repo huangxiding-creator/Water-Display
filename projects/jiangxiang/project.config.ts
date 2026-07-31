@@ -360,6 +360,16 @@ export const jiangxiangConfig: ProjectConfig = {
     '网络安全防控不足：现有设备与运行环境无法满足数字孪生系统部署要求。',
   ],
 
+  /* ----------------------------- Figures -------------------------------- */
+  /* Real report figures, reused in the showcase (files live in public/figures/,
+     gitignored as report IP; a stylised placeholder shows when absent). */
+  figures: [
+    { chapterId: 'profile', src: 'figures/fig-location.png', caption: '图15.1-1 江巷灌区工程位置示意图', ref: '15.1.1', type: 'map' },
+    { chapterId: 'profile', src: 'figures/fig-layout.png', caption: '图15.1-2 工程布局图', ref: '15.1.1', type: 'layout' },
+    { chapterId: 'profile', src: 'figures/fig-org.png', caption: '图15.1-3 管理机构设置图', ref: '15.1.2', type: 'org' },
+    { chapterId: 'framework', src: 'figures/fig-framework.png', caption: '图15.4-1 总体框架图', ref: '15.4.3', type: 'framework' },
+  ],
+
   /* -------------------------- Business modules --------------------------- */
   businessModules: [
     {
