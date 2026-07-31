@@ -3,6 +3,7 @@ import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import { useRouter, RouterView } from 'vue-router'
 import { project, navIndex } from '@/data/project'
 import LogoMark from '@/components/LogoMark.vue'
+import AiAssistant from '@/components/AiAssistant.vue'
 
 const router = useRouter()
 const now = ref(new Date())
@@ -110,6 +111,9 @@ const collapsed = ref(false)
         </RouterView>
       </main>
     </div>
+
+    <!-- Floating AI assistant (Zhipu GLM) -->
+    <AiAssistant />
   </div>
 </template>
 

@@ -56,5 +56,7 @@ tmp/
 .research/report_tables.json
 *.output
 
-# Tauri (future)
-src-tauri/target/
+# Tauri (desktop app)
+**/src-tauri/target/
+**/src-tauri/gen/schemas/
+apps/web/src-tauri/icon-source.png

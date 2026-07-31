@@ -53,7 +53,10 @@
 - **三档便携**：
   - 🅰 单文件 `index.html`（双击即开，零依赖）
   - 🅱 `start.bat` / `start.sh` 一键启动（便携 http 服务器）
-  - 🅲 （规划中）Tauri 桌面 App
+  - 🅲 Tauri 桌面 App（`.exe` / `.msi`，原生窗口）
+- **🤖 AI 报告问答助手**：嵌入式 GLM（智谱）助手，用报告做知识库，业主问"什么是 L2 数据底板"即答（免费 `glm-4.5-flash`，可切 `glm-5.2`）
+- **🗺 灌区一张图**：Leaflet 真实 GIS，27 个工程要素真实经纬度（水库/泵站/铁塔/无人机机场），图层切换
+- **🏭 BIM 机组拆解**：Three.js 程序化滁河一级站，6 台机组可拆解为电机/主轴/叶轮/蜗壳
 - **品牌身份系统**：项目名 → 配色 + 字体 + 自动 SVG Logo
 - **生产级工程**：TypeScript 严格模式、组件化、ECharts 主题统一、CI/CD、零 `console.log`
 
@@ -84,9 +87,18 @@ pnpm --filter @wd/web build:static   # 单文件构建（dist/index.html，双�
 pnpm --filter @wd/web build:static
 # 把 apps/web/dist/ 整个文件夹拷给业主，双击 index.html 即可
 # 或双击 apps/web/start.bat （Windows）/ ./start.sh （macOS/Linux）
+
+# 桌面 App（原生窗口，第三档便携）
+pnpm --filter @wd/web tauri build      # 产出 .exe / .msi
 ```
 
 > 演示账号：任意账号密码即可进入（这是展示平台，非真实系统）。
+
+### AI 报告问答助手
+
+平台右下角悬浮 🤖 按钮，业主可用自然语言提问。默认用智谱 **GLM-4.5-Flash**（免费）。
+配置：在 AI 面板的 ⚙ 设置中粘贴智谱 API Key（仅存本机 localStorage，不上传），或复制 `.env.example` 为 `.env.local` 填入开发用 Key。需要更强能力时切换 `glm-5.2`（收费）。
+获取免费 Key：https://bigmodel.cn
 
 ## 📂 项目结构
 
@@ -127,12 +139,13 @@ Water-Display/
 | 框架 | Vue 3 + TypeScript + Vite |
 | 状态 | Pinia |
 | 图表 | Apache ECharts 5 |
+| GIS 一张图 | Leaflet（真实坐标，离线降级）|
+| 3D / BIM | Three.js（程序化机组拆解）|
+| AI | 智谱 GLM-4.5-Flash（免费）/ GLM-5.2 |
+| 桌面 | Tauri 2（原生窗口）|
 | 便携打包 | vite-plugin-singlefile |
 | 配置校验 | Zod |
 | CI | GitHub Actions |
-| 文档 | 见 `docs/` |
-
-> Cesium / Three.js / Tauri 等为后续 M2+ 阶段的增量能力（GIS 一张图、BIM、桌面 App）。
 
 ## 📖 文档
 
@@ -144,8 +157,9 @@ Water-Display/
 - ✅ **M0 地基**：monorepo / 配置 Schema / 品牌 / 登录 / 主框架 / CI
 - ✅ **M1 内容**：章节页 / 总览大屏 / 报告图文复用
 - ✅ **M2 业务深度**：9+1 业务模块 + 3 个英雄模拟器 + 需求批注
-- 🚧 **M3 交付**：单文件构建 / 一键启动 / report-to-frb 编译器
-- 🔜 **后续**：Cesium 灌区一张图、BIM 机组拆解、Tauri 桌面 App、AI 报告问答助手
+- ✅ **M3 交付**：单文件构建 / 一键启动 / report-to-frb 编译器
+- ✅ **M4 增强**：AI 报告问答助手（GLM）/ Leaflet 灌区一张图 / Three.js BIM 机组拆解 / Tauri 桌面 App
+- 🔜 **后续**：真实 .rvt BIM 接入、移动门户、更多水利工程样例
 
 ## 📄 许可证
 

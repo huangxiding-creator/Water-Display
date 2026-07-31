@@ -12,12 +12,16 @@ import { project } from '@/data/project'
 type ComponentKind =
   | { kind: 'content' }
   | { kind: 'model-library' }
+  | { kind: 'onemap' }
+  | { kind: 'chuhe' }
   | { kind: 'biz' }
   | { kind: 'my-needs' }
 
 function resolveComponent(id: string): ComponentKind {
   if (id === 'model-library') return { kind: 'model-library' }
   if (id === 'my-needs') return { kind: 'my-needs' }
+  if (id === 'biz-onemap') return { kind: 'onemap' }
+  if (id === 'biz-chuhe') return { kind: 'chuhe' }
   if (id.startsWith('biz-')) return { kind: 'biz' }
   return { kind: 'content' }
 }
@@ -48,9 +52,13 @@ const routes: RouteRecordRaw[] = [
             ? lazy(() => import('@/pages/chapters/ModelLibraryPage.vue'))
             : c.kind === 'my-needs'
               ? lazy(() => import('@/pages/chapters/MyNeedsPage.vue'))
-              : c.kind === 'biz'
-                ? lazy(() => import('@/pages/chapters/BizModulePage.vue'))
-                : lazy(() => import('@/pages/chapters/ContentPage.vue'))
+              : c.kind === 'onemap'
+                ? lazy(() => import('@/pages/chapters/BizOnemapPage.vue'))
+                : c.kind === 'chuhe'
+                  ? lazy(() => import('@/pages/chapters/BizChuhePage.vue'))
+                  : c.kind === 'biz'
+                    ? lazy(() => import('@/pages/chapters/BizModulePage.vue'))
+                    : lazy(() => import('@/pages/chapters/ContentPage.vue'))
         return { path: id, name: id, component, props: { chapterId: id } }
       }),
     ],
