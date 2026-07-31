@@ -132,14 +132,17 @@ Water-Display/
 
 ## ➕ 新增一个水利工程项目
 
-1. 运行编译器起草配置：
-   ```bash
-   pip install -r tools/report-to-frb/requirements.txt
-   python tools/report-to-frb/docx_extract.py path/to/报告.docx
-   ```
-2. 仿照 `projects/jiangxiang/project.config.ts`，填一份新的 `projects/<工程名>/project.config.ts`
-3. 在 `apps/web/src/data/project.ts` 切换导入
-4. `pnpm build:static` → 得到该工程的展示平台
+**完整指南**：[docs/CONFIG_GUIDE.md](docs/CONFIG_GUIDE.md)（字段速查 + 工作流 + 排错）
+
+最快路径：
+1. `cp -r projects/_template projects/my-project`（模板带详尽注释）
+2. 运行编译器起草数据：`python tools/report-to-frb/docx_extract.py 报告.docx`
+3. 仿 `projects/jiangxiang/` 填 `project.config.ts`，改 `package.json` 的 name
+4. `pnpm --filter @wd/project-my-project validate` 校验
+5. 改 `apps/web/src/data/project.ts` 的 import 指向新工程
+6. `pnpm build:static` → 得到该工程的展示平台
+
+> 有报告在手，照指南流程**半天**可产出新工程的完整展示站点。
 
 ## 🛠 技术栈
 
@@ -158,8 +161,10 @@ Water-Display/
 
 ## 📖 文档
 
+- [docs/CONFIG_GUIDE.md](docs/CONFIG_GUIDE.md) — **★ 接入第二个工程的配置指南**（字段速查 + 工作流 + 排错）
 - [PROPOSAL.md](PROPOSAL.md) — 完整提案（含 100× 路径、技术决策、路线图）
 - [docs/REQUIREMENTS_BREAKDOWN.md](docs/REQUIREMENTS_BREAKDOWN.md) — 江巷灌区报告 200+ 条功能需求分解
+- [projects/_template/](projects/_template/) — 可复制的工程配置骨架（带注释）
 
 ## 🗺 路线图
 
